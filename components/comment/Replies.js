@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable } from 'react-native'
+import { View, Text, Image, Pressable, Appearance } from 'react-native'
 import React, { useState } from 'react';
 import { formatTimestamp } from '../queries/format';
 import {EllipsisVerticalIcon} from 'react-native-heroicons/outline';
@@ -7,6 +7,9 @@ import ReplyInputModal from '../modals/ReplyInputModal';
 
 
 const Replies = ({bookId, chapterId, commentId, userDetails, reply, user}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const [replyOptions, setReplyOptions] = useState(false);
   const [showReplySection, setShowReplySection] = useState(false);
 
@@ -41,7 +44,7 @@ const Replies = ({bookId, chapterId, commentId, userDetails, reply, user}) => {
                 </View>
                 
                 <View className="mt-1">
-                  <Text className="text-black font-medium text-justify">
+                  <Text className={`${isDarkTheme ? 'text-white' : 'text-black'} font-medium text-justify`}>
                     {reply.content}
                   </Text>
                 </View>
@@ -54,7 +57,7 @@ const Replies = ({bookId, chapterId, commentId, userDetails, reply, user}) => {
                 setReplyOptions(!replyOptions);
               }} 
               >
-                <EllipsisVerticalIcon size={20} color="black"/>
+                <EllipsisVerticalIcon size={20} color={`${isDarkTheme ? 'white' : 'black'}`}/>
               </Pressable>
             )}
           

@@ -1,5 +1,5 @@
-import { View, Text, Image, TextInput, Pressable, Modal, TouchableWithoutFeedback, Dimensions, TouchableOpacity } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react';
+import { View, Image, TextInput, Pressable, Appearance } from 'react-native'
+import React, { useEffect, useState } from 'react';
 import {MagnifyingGlassIcon} from 'react-native-heroicons/outline';
 import SearchResults from '../SearchResults';
 import { performSearch } from '../queries/fetchUserDetails';
@@ -8,6 +8,10 @@ import { useNavigation } from '@react-navigation/native';
 import HeaderMenu from '../modals/HeaderMenu';
 
 const HomeHeader = ({user, userDetails}) => {
+  const colorScheme = Appearance.getColorScheme();
+  const isDarkTheme = colorScheme === 'dark';
+
+
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -26,7 +30,7 @@ const HomeHeader = ({user, userDetails}) => {
   
 
   return (
-    <View className="relative bg-[#0058f7] dark:bg-black flex-row w-full space-x-2 items-center p-2">
+    <View className={`relative ${isDarkTheme? 'bg-black' : 'bg-[#0058f7]'} flex-row w-full space-x-2 items-center p-2`}>
 
         <Pressable 
           onPress={() => navigation.navigate('Home')}
@@ -36,23 +40,22 @@ const HomeHeader = ({user, userDetails}) => {
             className="w-12 h-8 "
           />
         </Pressable>
-
     
         <View className="flex-1 relative">
             <View className="flex-row w-full justify-between bg-white dark:bg-zinc-700 dark:text-white py-2 px-4 rounded-full">
               <TextInput
                 keyboardType='default'
-                className="outline-none bg-white dark:bg-zinc-700 dark:text-white" 
+                className={`outline-none ${isDarkTheme ? 'bg-zinc-700 text-white' : 'bg-white text-black'}`} 
                 placeholder="Search for books, users, genres..."
                 value={searchQuery}
                 onChangeText={(text) => setSearchQuery(text)}
               />
 
-              <MagnifyingGlassIcon size={20} color="gray"/>
+              <MagnifyingGlassIcon size={20} color={`${isDarkTheme ? 'white' : 'gray'}`}/>
             </View>
             
             {searchResults.length > 0 && (
-              <View  className="absolute top-full right-0 left-0 bg-[#fff] shadow-lg shadow-[#0000001A] rounded-xl p-2 w-full">
+              <View  className={`absolute top-full right-0 left-0 ${isDarkTheme ? 'bg-zinc-700' : 'bg-[#fff]'}  shadow-lg shadow-[#0000001A] rounded-xl p-2 w-full`}>
                 <SearchResults userDetails={userDetails} results={searchResults}/>
               </View>
             )}

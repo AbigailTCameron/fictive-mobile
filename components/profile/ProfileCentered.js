@@ -1,10 +1,12 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Appearance } from 'react-native'
 import React, { useEffect, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { uploadProfilePicture } from '../queries/fetchUserDetails';
 
 
 const ProfileCentered = ({user, userDetails, setUserDetails}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
 
   useEffect(() => {
     (async () => {
@@ -40,11 +42,11 @@ const ProfileCentered = ({user, userDetails, setUserDetails}) => {
 
 
   return (
-    <View className="h-full w-full flex-1 justify-center items-center bg-white space-y-10">
+    <View className={`h-full w-full flex-1 justify-center items-center ${isDarkTheme ? 'bg-zinc-800' : 'bg-white'}  space-y-10`}>
 
           <View className="items-center -mt-20 space-y-2">
-                <Text className="font-extrabold text-3xl">{userDetails.firstName} {userDetails.lastName}</Text>
-                <Text className="font-medium text-xl">@{userDetails.username}</Text>
+                <Text className={`${isDarkTheme ? 'text-white' : 'text-black'} font-extrabold text-3xl`}>{userDetails.firstName} {userDetails.lastName}</Text>
+                <Text className={`${isDarkTheme ? 'text-white' : 'text-black'} font-medium text-xl`}>@{userDetails.username}</Text>
           </View>
        
           <TouchableOpacity onPress={handleImageChange}>

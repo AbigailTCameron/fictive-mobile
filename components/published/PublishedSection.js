@@ -1,10 +1,13 @@
-import { View, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, TextInput, Appearance } from 'react-native'
 import React, { useState } from 'react'
 import { handleSavePublishedSynopsis, handleSavePublishedTags } from '../queries/fetchUserDetails';
 import { formatTimestamp } from '../queries/format';
 import { useNavigation } from '@react-navigation/native';
 
 const PublishedSection = ({bookData, id, setBookData, editPost, setEditPost}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation();
 
   const [tagInput, setTagInput] = useState('');
@@ -44,7 +47,7 @@ const PublishedSection = ({bookData, id, setBookData, editPost, setEditPost}) =>
   return (
     <ScrollView className="m-2">
 
-        <Text className="font-medium mb-1">Themes:</Text>
+        <Text className={`font-medium mb-1 ${isDarkTheme ? 'text-white' : 'text-black'}`}>Themes:</Text>
         <View className="flex-row space-x-1">
 
           {bookData.tags.map((tag, index) => (
@@ -63,8 +66,9 @@ const PublishedSection = ({bookData, id, setBookData, editPost, setEditPost}) =>
         {editPost && (
           <View >
               <TextInput
-                className="text-black p-2 rounded-md my-1 border flex-1"
+                className={`${isDarkTheme ? 'text-white bg-zinc-600 border-zinc-600' : 'text-black'}  p-2 rounded-md my-1 border flex-1`}
                 placeholder="Enter a theme..."
+                placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                 value={tagInput}
                 onChangeText={(text) => setTagInput(text)}
               />
@@ -81,10 +85,11 @@ const PublishedSection = ({bookData, id, setBookData, editPost, setEditPost}) =>
             {editPost ? (
               <View className="flex-1 w-full">
                 <TextInput
-                  className="text-black p-2 rounded-md my-1 border flex-1"
+                  className={`${isDarkTheme ? 'text-white bg-zinc-600 border-zinc-600' : 'text-black'}  p-2 rounded-md my-1 border flex-1`}
                   multiline
                   value={synopsisInput}
                   onChangeText={(text) => setSynopsisInput(text)}
+                  placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                   placeholder="Click edit & write synopsis here..."
                 />
 
@@ -105,20 +110,20 @@ const PublishedSection = ({bookData, id, setBookData, editPost, setEditPost}) =>
 
               </View>
             ) : (
-              <Text>{synopsisInput || 'Click edit to write synopsis and add themes...'}</Text>
+              <Text className={`${isDarkTheme ? 'text-white' : 'text-black'}`}>{synopsisInput || 'Click edit to write synopsis and add themes...'}</Text>
             )}
         </View>
 
         <View className="my-6" style={{ borderCollapse: 'separate', borderSpacing: '0 10px' }}>
             <View className="flex-row border-b border-slate-300">
               <View className="flex-1">
-                <Text className='text-slate-600 font-bold py-1'>Chapters</Text>
+                <Text className={`${isDarkTheme ? 'text-white' : 'text-slate-600'}  font-bold py-1`}>Chapters</Text>
               </View>
               <View className="flex-1">
-                <Text className="text-slate-600 font-bold py-1">Status</Text>
+                <Text className={`${isDarkTheme ? 'text-white' : 'text-slate-600'}  font-bold py-1`}>Status</Text>
               </View>
               <View className="flex-1">
-                <Text className="text-slate-600 font-bold py-1">Date</Text>
+                <Text className={`${isDarkTheme ? 'text-white' : 'text-slate-600'}  font-bold py-1`}>Date</Text>
               </View>
             </View>
 
@@ -137,10 +142,10 @@ const PublishedSection = ({bookData, id, setBookData, editPost, setEditPost}) =>
                       <Text className={`font-bold ${item.fromDrafts ? 'text-[#0058f7]' : 'text-slate-600 cursor-not-allowed'}`} >{item.chapterTitle}</Text>
                     </View>
                     <View className="flex-1 py-2">
-                      <Text className="text-slate-600 font-medium" >{item.fromDrafts ? "drafts" : "published"}</Text>
+                      <Text className={`${isDarkTheme ? 'text-white' : 'text-slate-600'} font-medium`} >{item.fromDrafts ? "drafts" : "published"}</Text>
                     </View>
                     <View className="flex-1 py-2">
-                      <Text className="text-slate-600 font-medium">{formatTimestamp(item.timestamp)}</Text>
+                      <Text className={`${isDarkTheme ? 'text-white' : 'text-slate-600'} font-medium`}>{formatTimestamp(item.timestamp)}</Text>
                     </View>
               </TouchableOpacity>
             ))}

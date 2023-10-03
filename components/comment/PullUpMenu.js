@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Image, TextInput, TouchableOpacity, ScrollView, Modal, Dimensions, TouchableWithoutFeedback, SafeAreaView, KeyboardAvoidingView } from 'react-native'
+import { View, Text, Pressable, Image, TextInput, TouchableOpacity, ScrollView, Modal, Dimensions, TouchableWithoutFeedback, SafeAreaView, KeyboardAvoidingView, Appearance } from 'react-native'
 import React, { useState } from 'react';
 import {PaperAirplaneIcon, XMarkIcon} from 'react-native-heroicons/outline';
 import CommentSection from './CommentSection';
@@ -7,6 +7,9 @@ import LoginModal from '../modals/LoginModal';
 
 
 const PullUpMenu = ({user, isBottomSheetOpen, handleCloseBottomSheet, userDetails, comments, setBatchSize, hasMoreComments, bookId, chapterId}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const windowHeight = Dimensions.get('window').height;
 
   const [newComment, setNewComment] = useState('');
@@ -27,12 +30,12 @@ const PullUpMenu = ({user, isBottomSheetOpen, handleCloseBottomSheet, userDetail
       visible={isBottomSheetOpen}
       onRequestClose={handleCloseBottomSheet}
     >
-      <View className="flex-1 bg-black/[0.3]">
+      <View className={`flex-1 ${isDarkTheme ? 'bg-zinc-800/[0.9]' : 'bg-black/[0.3]'}`}>
       
           <KeyboardAvoidingView   
             behavior="padding"
             enabled 
-            className="absolute left-0 right-0 bottom-0 bg-white justify-start rounded-t-3xl px-1 py-2 shadow-lg" style={{ height: windowHeight * 0.7 }}
+            className={`absolute left-0 right-0 bottom-0 ${isDarkTheme ? 'bg-black' : 'bg-white'} justify-start rounded-t-3xl px-1 py-2 shadow-lg`} style={{ height: windowHeight * 0.7 }}
           >
 
               <View className="flex-row items-center justify-between mx-2">
@@ -44,7 +47,7 @@ const PullUpMenu = ({user, isBottomSheetOpen, handleCloseBottomSheet, userDetail
 
               <View className="flex-row p-2 w-full space-x-1 items-center">
           
-                  <View className="flex-1 flex-row items-center bg-gray-200 rounded-xl p-1">
+                  <View className={`flex-1 flex-row items-center ${isDarkTheme ? 'bg-zinc-700' : 'bg-gray-200'}  rounded-xl p-1`}>
                       {user && userDetails.profilePictureURL ? (
                           <Image 
                             source={{
@@ -60,8 +63,9 @@ const PullUpMenu = ({user, isBottomSheetOpen, handleCloseBottomSheet, userDetail
                       )}
 
                       <TextInput 
-                        className="flex-1 p-2 bg-gray-200 text-black"
+                        className={`flex-1 p-2 ${isDarkTheme ? 'bg-zinc-700 text-white' : 'bg-gray-200 text-black'}`}
                         placeholder='Comment...'
+                        placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                         value={newComment}
                         onChangeText={handleCommentChange}
                         multiline

@@ -1,4 +1,4 @@
-import { View, SafeAreaView, ScrollView, RefreshControl } from 'react-native'
+import { View, SafeAreaView, ScrollView, RefreshControl, Appearance } from 'react-native'
 import React, { useCallback, useLayoutEffect, useState } from 'react'
 import HomeHeader from '../components/headers/HomeHeader'
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -13,6 +13,8 @@ const DraftScreen = ({user, userDetails}) => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
 
   const navigation = useNavigation();
 
@@ -52,15 +54,15 @@ const DraftScreen = ({user, userDetails}) => {
   
   return (
     <View className="flex-1">
-        <View className="flex-0 bg-[#0059f7]"/>
+        <View className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-[#0059f7]'}`}/>
 
-        <SafeAreaView className="flex-0 z-50 bg-[#0058f7]">
+        <SafeAreaView className={`flex-0 z-50 ${isDarkTheme ? 'bg-black' : 'bg-[#0058f7]'}`}>
           <HomeHeader user={user} userDetails={userDetails}/>
         </SafeAreaView>
 
 
         <ScrollView
-            className="flex-1 bg-gray-100"
+            className={`flex-1 ${isDarkTheme ? 'bg-zinc-800' : 'bg-gray-100'}`}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
           >
             <Profile user={user} userDetails={userDetails}/>
@@ -70,11 +72,11 @@ const DraftScreen = ({user, userDetails}) => {
         </ScrollView>
 
 
-        <SafeAreaView className="flex-0 bg-white">
+        <SafeAreaView className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-white'} `}>
           <HomeFooter user={user}/>
         </SafeAreaView>
 
-        <View className="flex-0 bg-white"/>
+        <View className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-white'}`}/>
     </View>
   )
 }

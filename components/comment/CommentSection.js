@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, Pressable, TouchableOpacity, ScrollView, Appearance } from 'react-native'
 import React, { useEffect, useState } from 'react';
 import { formatTimestamp } from '../queries/format';
 import {EllipsisVerticalIcon} from 'react-native-heroicons/outline';
@@ -9,6 +9,9 @@ import ReplyInputModal from '../modals/ReplyInputModal';
 
 
 const CommentSection = ({comment, bookId, chapterId, userDetails, user, setLoginWindow}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const [showReplySection, setShowReplySection] = useState(false);
   const [replies, setReplies] = useState([]);
   const [batchReplySize, setReplyBatchSize] = useState(10); 
@@ -59,7 +62,7 @@ const CommentSection = ({comment, bookId, chapterId, userDetails, user, setLogin
                 </View>
 
                 <View>
-                  <Text className="text-black font-semibold text-justify">
+                  <Text className={`${isDarkTheme ? 'text-white' : 'text-black'}  font-semibold text-justify`}>
                     {comment.content}
                   </Text>
                 </View>
@@ -72,7 +75,7 @@ const CommentSection = ({comment, bookId, chapterId, userDetails, user, setLogin
                 setOptions(!options);
               }} 
               >
-                <EllipsisVerticalIcon size={20} color="black"/>
+                <EllipsisVerticalIcon size={20} color={`${isDarkTheme ? 'white' : 'black'}`}/>
               </Pressable>
             )}
 
@@ -83,7 +86,7 @@ const CommentSection = ({comment, bookId, chapterId, userDetails, user, setLogin
           <TouchableOpacity 
             onPress={() => setShowReplies(!showReplies)}
             className="items-center">
-            <Text className="font-medium">
+            <Text className={`font-medium ${isDarkTheme ? 'text-white' : 'text-black'}`}>
               {replies.length} replies
             </Text>
           </TouchableOpacity>
@@ -105,7 +108,7 @@ const CommentSection = ({comment, bookId, chapterId, userDetails, user, setLogin
 
             {hasMoreReplies && (
               <TouchableOpacity className="items-center" onPress={handleLoadMoreReplies}>
-                <Text>
+                <Text className={`${isDarkTheme ? 'text-white' : 'text-black'}`}>
                   Load more
                 </Text>
               </TouchableOpacity>

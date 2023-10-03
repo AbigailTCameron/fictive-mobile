@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Appearance } from 'react-native'
 import React, { useState } from 'react'
 import {FireIcon, QueueListIcon, BookOpenIcon, UserPlusIcon} from 'react-native-heroicons/solid';
 import {PlusCircleIcon} from 'react-native-heroicons/outline';
@@ -7,12 +7,15 @@ import LoginModal from '../modals/LoginModal';
 
 
 const HomeFooter = ({user}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation();
 
   const [loginWindow, setLoginWindow] = useState(false);
 
   return (
-    <View className={`bg-white w-full bottom-0 fixed`}>
+    <View className={`${isDarkTheme ? 'bg-black' : 'bg-white'}  w-full bottom-0 fixed`}>
       
         <View className="flex-row w-full justify-evenly pt-1">
             <TouchableOpacity
@@ -22,7 +25,7 @@ const HomeFooter = ({user}) => {
               className="flex items-center justify-center"
             >
               <FireIcon />
-              <Text className="text-black text-xs font-medium">trending</Text>
+              <Text className={`${isDarkTheme ? 'text-white' : 'text-black '} text-xs font-medium`}>trending</Text>
             </TouchableOpacity>
 
             <TouchableOpacity 
@@ -36,7 +39,7 @@ const HomeFooter = ({user}) => {
               className="flex items-center"
             >
               <BookOpenIcon />
-              <Text className="text-black text-xs font-medium">Published</Text>
+              <Text className={`${isDarkTheme ? 'text-white' : 'text-black '} text-xs font-medium`}>Published</Text>
             </TouchableOpacity>
 
             <TouchableOpacity 
@@ -62,7 +65,7 @@ const HomeFooter = ({user}) => {
               }}
               className="flex items-center">
               <UserPlusIcon />
-              <Text className="text-black text-xs font-medium">Following</Text>
+              <Text className={`${isDarkTheme ? 'text-white' : 'text-black '} text-xs font-medium`}>Following</Text>
             </TouchableOpacity>
             
             <TouchableOpacity className="flex items-center"
@@ -75,7 +78,7 @@ const HomeFooter = ({user}) => {
               }}
             >
               <QueueListIcon />
-              <Text className="text-black text-xs font-medium">Reading list</Text>
+              <Text className={`${isDarkTheme ? 'text-white' : 'text-black '} text-xs font-medium`}>Reading list</Text>
             </TouchableOpacity>
             
         </View>

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Appearance } from 'react-native'
 import React, { useCallback, useLayoutEffect, useState } from 'react'
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import HomeHeader from '../components/headers/HomeHeader';
@@ -6,8 +6,12 @@ import EditPublishedHeader from '../components/published/EditPublishedHeader';
 import { fetchBook, handleChapterPublish, handleNewPostClick } from '../components/queries/fetchUserDetails';
 import NewPublishedChapter from '../components/published/NewPublishedChapter';
 import ConfirmPublish from '../components/modals/ConfirmPublish';
+import LoadingPage from './loading/LoadingPage';
 
 const NewPublishedChapterScreen = ({user, userDetails}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation(); 
 
   const [bookData, setBookData] = useState(null);
@@ -97,12 +101,17 @@ const NewPublishedChapterScreen = ({user, userDetails}) => {
     }
   }
 
+  if(loading){
+    return(
+      <LoadingPage />
+    )
+  }
 
   return (
-    <View className="flex-1">
-        <View className="flex-0 bg-[#0059f7]"/>
+    <View className={`flex-1 ${isDarkTheme ? 'bg-zinc-800' : ''}`}>
+        <View className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-[#0059f7]'}`} />
 
-        <SafeAreaView className="flex-0 z-50 bg-[#0058f7]">
+        <SafeAreaView className={`flex-0 z-50 ${isDarkTheme ? 'bg-black' : 'bg-[#0058f7]'}`}>
             <HomeHeader user={user} userDetails={userDetails}/>
         </SafeAreaView>
 
@@ -145,7 +154,7 @@ const NewPublishedChapterScreen = ({user, userDetails}) => {
             </View>
         </SafeAreaView>
 
-        <View className="flex-0 bg-white"/>
+        <View className={`flex-0 ${isDarkTheme ? 'bg-zinc-800' : 'bg-white'} `}/>
 
         {showConfirm && (
            <ConfirmPublish

@@ -99,14 +99,14 @@ const PublishedHeader = ({userDetails, bookData, bookId, setBookData, setUserDet
               <TouchableOpacity onPress={handleImageChange}>
                     {bookData.image_url ? (
                       <Image
-                        className="flex-1 border border-black rounded-xl"
+                        className="flex-1 border-[1px] rounded-xl"
                         source={{ uri: bookData.image_url }}
                         style={{ width: 100, height: 100}}
                       />
                     ) : (
                   
                         <Image
-                          className="flex-1 border border-black rounded-xl"
+                          className="flex-1 border-[1px] rounded-xl"
                           source={require('../../assets/no-cover.png')}
                           style={{ width: 100, height: 100 }}
                         />

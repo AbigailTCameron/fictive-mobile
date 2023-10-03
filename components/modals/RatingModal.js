@@ -1,10 +1,13 @@
-import { View, Text, Modal, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import { View, Text, Modal, TouchableWithoutFeedback, TouchableOpacity, Appearance } from 'react-native'
 import React, { useEffect, useState } from 'react';
 import {StarIcon} from 'react-native-heroicons/solid';
 import { updateRating } from '../queries/fetchUserDetails';
 
 
 const RatingModal = ({onClose, bookTitle, bookId, userId}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const [rating, setRating] = useState(0);
 
   const closeModal = () => {
@@ -31,10 +34,10 @@ const RatingModal = ({onClose, bookTitle, bookId, userId}) => {
     >
         <TouchableWithoutFeedback onPress={closeModal}>
 
-            <View className="flex-1 items-center justify-center shadow-lg bg-black/[0.5]">
+            <View className={`flex-1 items-center justify-center shadow-lg ${isDarkTheme ? 'bg-zinc-800/[0.7]' : 'bg-black/[0.5]'} `}>
 
-                <View className="bg-white rounded-xl p-8">
-                   <Text className="font-semibold text-xl text-center mb-2">{bookTitle}</Text>
+                <View className={`${isDarkTheme ? 'bg-black' : 'bg-white '} rounded-xl p-8`}>
+                   <Text className={`${isDarkTheme ? 'text-white' : 'text-black'} font-semibold text-xl text-center mb-2`}>{bookTitle}</Text>
 
                    <View className="flex-row">
                     {[1, 2, 3, 4, 5].map((value) => (
@@ -48,8 +51,8 @@ const RatingModal = ({onClose, bookTitle, bookId, userId}) => {
                     ))}
                    </View>
 
-                   <TouchableOpacity className="bg-black items-center p-2 rounded-xl mt-2" onPress={handleSaveRating}>
-                      <Text className="text-white font-medium">Save Rating</Text>
+                   <TouchableOpacity className={`${isDarkTheme ? 'bg-white' : 'bg-black'}  items-center p-2 rounded-xl mt-2`} onPress={handleSaveRating}>
+                      <Text className={`${isDarkTheme ? 'text-black' : 'text-white'}  font-medium`}>Save Rating</Text>
                     </TouchableOpacity>
 
                 </View>

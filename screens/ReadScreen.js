@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, SafeAreaView, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, ScrollView, SafeAreaView, TouchableWithoutFeedback, Appearance } from 'react-native'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { fetchBook, fetchComments } from '../components/queries/fetchUserDetails';
@@ -10,6 +10,9 @@ import StoryFooter from '../components/footers/StoryFooter';
 import PullUpMenu from '../components/comment/PullUpMenu';
 
 const ReadScreen = ({user, userDetails}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [bookData, setBookData] = useState(null);
@@ -102,52 +105,61 @@ const ReadScreen = ({user, userDetails}) => {
   }
 
   return (
-    <SafeAreaView className="flex-1">
-      <TouchableWithoutFeedback onPress={showHeaderForFewSeconds}>
-          <View className="flex-1">
-              {showHeader && (
-                  <StoryHeader 
-                    bookTitle={bookTitle} 
-                    chapterTitle={bookData.chapters[currentChapterIndex].chapterTitle}
-                  />
-              )}
+    <View className={`flex-1 ${isDarkTheme ? 'bg-black' : ''}`}>
+          <View className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-[#0059f7]'}`}/>
 
-              <ScrollView className="flex-1">
-                  <BookContent 
-                    chapter={currentChapterIndex} 
-                    chapterTitle={bookData.chapters[currentChapterIndex].chapterTitle} 
-                    content={bookData.chapters[currentChapterIndex].content}
-                  />
-              </ScrollView>
+          <SafeAreaView className="flex-1">
+            <TouchableWithoutFeedback 
+              onPress={showHeaderForFewSeconds}
+            >
+                <View className="flex-1">
+                    {showHeader && (
+                        <StoryHeader 
+                          bookTitle={bookTitle} 
+                          chapterTitle={bookData.chapters[currentChapterIndex].chapterTitle}
+                        />
+                    )}
 
-            
-              <StoryFooter 
-                commentsLength={comments.length} 
-                currentChapterIndex={currentChapterIndex} 
-                bookLength={bookData.chapters.length}
-                handleNextChapter={handleNextChapter}
-                handlePreviousChapter={handlePreviousChapter}
-                handleToggleMenu={handleOpenBottomSheet}
+                    <ScrollView className="flex-1">
+                        <BookContent 
+                          chapter={currentChapterIndex} 
+                          chapterTitle={bookData.chapters[currentChapterIndex].chapterTitle} 
+                          content={bookData.chapters[currentChapterIndex].content}
+                        />
+                    </ScrollView>
+
+                  
+                    <StoryFooter 
+                      commentsLength={comments.length} 
+                      currentChapterIndex={currentChapterIndex} 
+                      bookLength={bookData.chapters.length}
+                      handleNextChapter={handleNextChapter}
+                      handlePreviousChapter={handlePreviousChapter}
+                      handleToggleMenu={handleOpenBottomSheet}
+                    />
+
+                </View>
+            </TouchableWithoutFeedback>
+
+            {isBottomSheetOpen && (
+              <PullUpMenu
+                user={user}
+                isBottomSheetOpen={isBottomSheetOpen}
+                handleCloseBottomSheet={handleCloseBottomSheet}
+                userDetails={userDetails}
+                comments={comments}
+                setBatchSize={setBatchSize}
+                hasMoreComments={hasMoreComments}
+                bookId={bookId}
+                chapterId={bookData.chapters[currentChapterIndex].id}
               />
+            )}     
 
-          </View>
-      </TouchableWithoutFeedback>
+          </SafeAreaView>
+          <View className={`flex-0 ${isDarkTheme ? 'bg-black' : ''}`}/>
 
-      {isBottomSheetOpen && (
-        <PullUpMenu
-          user={user}
-          isBottomSheetOpen={isBottomSheetOpen}
-          handleCloseBottomSheet={handleCloseBottomSheet}
-          userDetails={userDetails}
-          comments={comments}
-          setBatchSize={setBatchSize}
-          hasMoreComments={hasMoreComments}
-          bookId={bookId}
-          chapterId={bookData.chapters[currentChapterIndex].id}
-        />
-      )}     
+    </View>
 
-    </SafeAreaView>
    
   )
 }

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView } from 'react-native'
+import { View, SafeAreaView, Appearance } from 'react-native'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import HomeHeader from '../components/headers/HomeHeader';
@@ -8,6 +8,9 @@ import LoadingPage from './loading/LoadingPage';
 import EditPublishedChapter from '../components/published/EditPublishedChapter';
 
 const EditPublishedScreen = ({user, userDetails}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation(); 
 
   const [loading, setLoading] = useState(true);
@@ -43,10 +46,10 @@ const EditPublishedScreen = ({user, userDetails}) => {
 
 
   return (
-    <View className="flex-1">
-        <View className="flex-0 bg-[#0059f7]"/>
+    <View className={`flex-1 ${isDarkTheme ? 'bg-zinc-800' : ''}`}>
+        <View className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-[#0059f7]'}`}/>
 
-        <SafeAreaView className="flex-0 z-50 bg-[#0058f7]">
+        <SafeAreaView className={`flex-0 z-50 ${isDarkTheme ? 'bg-black' : 'bg-[#0058f7]'}`}>
             <HomeHeader user={user} userDetails={userDetails}/>
         </SafeAreaView>
 
@@ -66,7 +69,7 @@ const EditPublishedScreen = ({user, userDetails}) => {
             />
         </View>
 
-        <View className="flex-0 bg-white"/>
+        <View className={`flex-0 ${isDarkTheme ? 'bg-zinc-800' : 'bg-white'} `}/>
     </View>
   )
 }

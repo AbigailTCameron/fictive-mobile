@@ -1,9 +1,12 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, Appearance } from 'react-native'
 import React, { useState } from 'react'
 import CategoryCard from './CategoryCard';
 import {NewspaperIcon} from "react-native-heroicons/outline";
 
 const Categories = ({selectedTheme, setSelectedTheme}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const handleThemeClick = (theme) => {
     if (selectedTheme === theme) {
       // If the clicked theme is already selected, deselect it
@@ -15,7 +18,7 @@ const Categories = ({selectedTheme, setSelectedTheme}) => {
 
   return (
     <ScrollView 
-      className="bg-white"
+      className={`${isDarkTheme ? 'bg-black' : 'bg-white'}`}
       contentContainerStyle={{
         paddingHorizontal:15,
         padding:10

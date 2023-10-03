@@ -1,8 +1,11 @@
-import { View, Text, Modal, TouchableWithoutFeedback, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Modal, TouchableWithoutFeedback, TextInput, TouchableOpacity, Appearance } from 'react-native'
 import React, { useState } from 'react'
 import { reauthenticate } from '../queries/fetchUserDetails';
 
 const PasswordChangeModal = ({onClose, onConfirm, setPasswordLoginPopup}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState('');
@@ -34,14 +37,14 @@ const PasswordChangeModal = ({onClose, onConfirm, setPasswordLoginPopup}) => {
     >
       <TouchableWithoutFeedback onPress={closeModal}>
           <View 
-            className="flex-1 items-center justify-center bg-black/[0.5]"
+            className={`flex-1 items-center justify-center  ${isDarkTheme ? 'bg-zinc-800/[0.7]' : 'bg-black/[0.5]'}`}
             >
 
-              <View className="bg-white rounded-xl p-6 m-4">
+              <View className={`${isDarkTheme ? 'bg-black' : 'bg-white'} rounded-xl p-6 m-4`}>
 
 
                   <View className="flex w-full mb-2">
-                      <Text>To change your password, you need to reauthenticate:</Text>
+                      <Text className={`${isDarkTheme ? 'text-white' : 'text-black'}`}>To change your password, you need to reauthenticate:</Text>
                   </View>
                   
                   <View className="flex space-y-2 my-1">
@@ -49,20 +52,22 @@ const PasswordChangeModal = ({onClose, onConfirm, setPasswordLoginPopup}) => {
                     <TextInput
                       keyboardType='email-address'
                       placeholder="Email old email..."
+                      placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                       value={email}
                       onChangeText={handleEmailChange}
-                      className="outline-none bg-white px-4 py-2 border border-slate-300 rounded-md text-sm placeholder-slate-400 shadow-sm focus:outline-none"
-                    />
+                      className={`outline-none ${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'} px-4 py-2 border rounded-md text-sm shadow-sm focus:outline-none`}
+                      />
 
                     
                     <TextInput
                       keyboardType='default'
                       placeholder="Old password"
+                      placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                       value={password}
                       onChangeText={(text) => setPassword(text)}
                       secureTextEntry={true}
-                      className="outline-none bg-white dark:bg-zinc-700 dark:text-white px-4 py-2 border border-slate-300 dark:border-zinc-700 rounded-md text-sm placeholder-slate-400 shadow-sm focus:outline-none"
-                    />
+                      className={`outline-none ${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'} px-4 py-2 border rounded-md text-sm shadow-sm focus:outline-none`}
+                      />
                     
                     {emailError && <Text className="error text-red-600">Error authenticating login!!!</Text>}
                   </View>
@@ -70,10 +75,10 @@ const PasswordChangeModal = ({onClose, onConfirm, setPasswordLoginPopup}) => {
                   <View className="flex-row justify-center w-full space-x-2 mt-2">
 
                       <TouchableOpacity
-                        className="flex-row flex-1 items-center justify-center space-x-1 px-2 py-3 text-white bg-black rounded-xl"
+                        className={`flex-row flex-1 items-center justify-center space-x-1 px-2 py-3 ${isDarkTheme ? 'bg-white' : 'bg-black '} rounded-xl`}
                         onPress={handleConfirm}
                       >
-                        <Text className="font-semibold text-white">Confirm</Text>
+                        <Text className={`font-semibold ${isDarkTheme ? 'text-black' : 'text-white '}`}>Confirm</Text>
                       </TouchableOpacity>
 
                       <TouchableOpacity 

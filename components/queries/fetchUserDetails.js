@@ -632,15 +632,15 @@ export const fetchReadingList = async (setLoading, userDetails, setReadingList) 
 
 export const saveAsDraft = async (imageFile, currentUser, chapterTitle, storyContent, bookTitle, navigation) => {
   try {
+
       // Upload the image to Firebase Storage (if an image is selected)
       let imageUrl = ''; // Initialize the image URL  
-
-      const response = await fetch(imageFile);
-      const blob = await response.blob();
-  
-      const timestamp = Date.now();
-
+   
       if (imageFile) {
+        const response = await fetch(imageFile);
+        const blob = await response.blob();
+        const timestamp = Date.now();
+
         const storageRef = ref(storage, `draft_images/${currentUser.uid}/${timestamp}`);
         const snapshot = await uploadBytes(storageRef, blob);
         imageUrl = await getDownloadURL(snapshot.ref);
@@ -1464,12 +1464,12 @@ export const handleDirectPublish = async(bookTitle, chapterTitle, storyContent, 
     // Upload the image to Firebase Storage (if an image is selected)
     let imageUrl = ''; // Initialize the image URL  
 
-    const response = await fetch(imageFile);
-    const blob = await response.blob();
-
-    const timestamp = Date.now();
-
     if (imageFile) {
+      const response = await fetch(imageFile);
+      const blob = await response.blob();
+
+      const timestamp = Date.now();
+
       const storageRef = ref(storage, `draft_images/${userDetails.uid}/${timestamp}`);
       const snapshot = await uploadBytes(storageRef, blob);
       imageUrl = await getDownloadURL(snapshot.ref);

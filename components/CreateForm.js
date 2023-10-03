@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, Appearance } from 'react-native'
 import React, { useEffect, useState } from 'react';
 import { handleDirectPublish, saveAsDraft } from './queries/fetchUserDetails';
 import { useNavigation } from '@react-navigation/native';
@@ -6,6 +6,9 @@ import ConfirmPublish from './modals/ConfirmPublish';
 import * as ImagePicker from 'expo-image-picker';
 
 const CreateForm = ({user, userDetails, setUserDetails}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation(); 
   
   const [chapterTitle, setChapterTitle] = useState('');
@@ -87,7 +90,7 @@ const CreateForm = ({user, userDetails, setUserDetails}) => {
             <View className="flex-1">
                 <View className="flex-1 space-y-1">
                       <TextInput
-                        className="outline-none bg-white px-4 py-2 border border-slate-300 rounded-md text-sm placeholder-slate-400 focus:outline-none"
+                        className={`outline-none ${isDarkTheme ? 'bg-zinc-700 text-white' : 'bg-white border-slate-300 text-black'} px-4 py-2 border  rounded-md text-sm`}
                         placeholder="Book Title..."
                         value={bookTitle}
                         onChangeText={(text) => {
@@ -98,7 +101,7 @@ const CreateForm = ({user, userDetails, setUserDetails}) => {
                         }}
                       />
                       <TextInput
-                        className="outline-none bg-white px-4 py-2 border border-slate-300 rounded-md text-sm placeholder-slate-400 focus:outline-none"
+                        className={`outline-none ${isDarkTheme ? 'bg-zinc-700 text-white' : 'bg-white border-slate-300 text-black'} px-4 py-2 border  rounded-md text-sm`}
                         placeholder="Chapter Title"
                         value={chapterTitle}
                         onChangeText={(text) => {
@@ -109,19 +112,19 @@ const CreateForm = ({user, userDetails, setUserDetails}) => {
                         }}
                       />
 
-                    <View className="flex-row pt-2">
+                    <View className="flex-row pt-2 space-x-2">
                           <TouchableOpacity
                             onPress={handleSaveDraft}
-                            className="flex-1 items-center rounded-lg bg-black border-2 border-white py-2"
+                            className={`flex-1 items-center rounded-lg ${isDarkTheme ? 'bg-white' : 'bg-black border-2 border-white'}  py-2`}
                           >
-                            <Text className="text-white font-bold">Save as draft</Text>
+                            <Text className={`${isDarkTheme ? 'text-black' : 'text-white'} font-bold`}>Save as draft</Text>
                           </TouchableOpacity>
 
                           <TouchableOpacity
                             onPress={handlePublishClick}
-                            className="flex-1 items-center rounded-lg bg-black border-2 border-white py-2"
+                            className={`flex-1 items-center rounded-lg ${isDarkTheme ? 'bg-white' : 'bg-black border-2 border-white'}  py-2`}
                           >
-                            <Text className="text-white font-bold">Publish</Text>
+                            <Text className={`${isDarkTheme ? 'text-black' : 'text-white'} font-bold`}>Publish</Text>
                           </TouchableOpacity>
                     </View>
 
@@ -170,7 +173,7 @@ const CreateForm = ({user, userDetails, setUserDetails}) => {
 
         <ScrollView >
             <TextInput
-              className="flex-1 p-2 outline-none flex-grow"
+              className={`flex-1 p-2 outline-none flex-grow placeholder-slate-300 ${isDarkTheme ? 'text-white' : 'text-black'}`}
               placeholder="Write your story here..."
               value={storyContent}
               onChangeText={(text) => {

@@ -1,6 +1,6 @@
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
-import { RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Appearance, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import HomeHeader from '../components/headers/HomeHeader';
 import { fetchPublishedDraft } from '../components/queries/fetchUserDetails';
 import DraftHeader from '../components/drafts/DraftHeader';
@@ -8,6 +8,9 @@ import LoadingPage from './loading/LoadingPage';
 import DraftSection from '../components/drafts/DraftSection';
 
 function SpecificDraft({user, userDetails}) {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const [draftData, setDraftData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [editPost, setEditPost] = useState(false); 
@@ -65,10 +68,10 @@ function SpecificDraft({user, userDetails}) {
   
 
   return (
-    <View className="flex-1">
-        <View className="flex-0 bg-[#0059f7]"/>
+    <View className={`flex-1 ${isDarkTheme ? 'bg-zinc-800' : ''}`}>
+        <View className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-[#0059f7]'}`}/>
 
-        <SafeAreaView className="flex-0 z-50 bg-[#0058f7]">
+        <SafeAreaView className={`flex-0 z-50 ${isDarkTheme ? 'bg-black' : 'bg-[#0058f7]'}`}>
           <HomeHeader user={user} userDetails={userDetails}/>
         </SafeAreaView>
 
@@ -83,7 +86,7 @@ function SpecificDraft({user, userDetails}) {
 
 
         <ScrollView
-          className="flex-1 bg-gray-100"
+          className={`flex-1 ${isDarkTheme ? 'bg-zinc-800' : 'bg-gray-100'}`}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
         >
         
@@ -98,27 +101,27 @@ function SpecificDraft({user, userDetails}) {
         </ScrollView>
 
         {!editPost && (
-           <SafeAreaView className="flex-0 bg-white mx-2">
-              <View className={`bg-white w-full bottom-0 fixed`}>
+           <SafeAreaView className={`flex-0 ${isDarkTheme ? 'bg-zinc-800' : 'bg-white'}  mx-2`}>
+              <View className={`${isDarkTheme ? 'bg-zinc-800' : 'bg-white'}  w-full bottom-0 fixed`}>
                   <View className="flex-row w-full space-x-2">
                       <TouchableOpacity
                         onPress={() => setEditPost(!editPost)}
-                        className="flex-1 items-center rounded-lg bg-black py-2"
+                        className={`flex-1 items-center rounded-lg ${isDarkTheme ? 'bg-white' : 'bg-black '}  py-2`}
                       >
-                        <Text className="text-white font-bold">Edit</Text>
+                        <Text className={`${isDarkTheme ? 'text-black' : 'text-white'}  font-bold`}>Edit</Text>
                       </TouchableOpacity>
                       <TouchableOpacity
                         onPress={() => navigation.navigate("NewDraftChapter", {draftId})}
-                        className="flex-1 items-center rounded-lg bg-black py-2"   
+                        className={`flex-1 items-center rounded-lg ${isDarkTheme ? 'bg-white' : 'bg-black '}  py-2`} 
                       >
-                        <Text className="text-white font-bold">New Post</Text>
+                        <Text className={`${isDarkTheme ? 'text-black' : 'text-white'}  font-bold`}>New Post</Text>
                       </TouchableOpacity>
                   </View>
               </View>
             </SafeAreaView>
         )}
        
-      <View className="flex-0 bg-white"/>
+      <View className={`flex-0 ${isDarkTheme ? 'bg-zinc-800' : 'bg-white'} `}/>
     </View>
   )
 }

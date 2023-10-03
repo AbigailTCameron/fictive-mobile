@@ -1,9 +1,12 @@
-import { View, Text, Modal, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Pressable, KeyboardAvoidingView } from 'react-native'
+import { View, Text, Modal, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Pressable, KeyboardAvoidingView, Appearance } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { signInExplore } from '../queries/fetchUserDetails';
 import { useNavigation } from '@react-navigation/native';
 
 const LoginModal = ({onClose}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation();
 
   const modalRef = useRef(null);
@@ -44,25 +47,25 @@ const LoginModal = ({onClose}) => {
     >
       <TouchableWithoutFeedback onPress={closeModal}>
       <View 
-        className="flex-1 items-center justify-center bg-black/[0.5]"
+        className={`flex-1 items-center justify-center ${isDarkTheme ? 'bg-zinc-800/[0.7]' : 'bg-black/[0.5]'}`}
         >
           <KeyboardAvoidingView
             behavior="padding"
             enabled
           >
-              <View ref={modalRef} className="bg-white rounded-xl p-6">
+              <View ref={modalRef} className={`${isDarkTheme ? 'bg-black' : 'bg-white'}  rounded-xl p-6`}>
 
                   <View className="flex-row items-center mb-2 space-x-1">
                       <Image 
                         source={require('../../assets/icon.png')} 
                         className="w-8 h-8"
                       />
-                      <Text className="text-xl font-semibold">fictive</Text>
+                      <Text className={`${isDarkTheme ? 'text-white' : 'text-black'} text-xl font-semibold`}>fictive</Text>
                   </View>
 
                   <View className="flex w-full mb-2">
-                      <Text>Access Fictive's catalogue of stories.</Text>
-                      <Text>Sign in and start publishing your original work.</Text>
+                      <Text className={`${isDarkTheme ? 'text-white' : 'text-black'}`}>Access Fictive's catalogue of stories.</Text>
+                      <Text className={`${isDarkTheme ? 'text-white' : 'text-black'}`}>Sign in and start publishing your original work.</Text>
                   </View>
                   
                   <View className="flex space-y-2 my-1">
@@ -70,10 +73,11 @@ const LoginModal = ({onClose}) => {
                     <TextInput
                       keyboardType='email-address'
                       placeholder="Email"
+                      placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                       value={email}
                       onChangeText={handleEmailChange}
-                      className="bg-white px-4 py-2 border border-slate-300 rounded-md text-sm text-black shadow-sm "
-                    />
+                      className={`outline-none ${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'} px-4 py-2 border rounded-md text-sm shadow-sm focus:outline-none`}
+                      />
 
                     {emailError && <Text className="error text-red-600">Error authenticating login!!!</Text>}
 
@@ -81,11 +85,12 @@ const LoginModal = ({onClose}) => {
                     <TextInput
                       keyboardType='default'
                       placeholder="Password"
+                      placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                       value={password}
                       onChangeText={handlePasswordChange}
                       secureTextEntry={true}
-                      className="bg-white px-4 py-2 border border-slate-300 rounded-md text-sm text-black shadow-sm"
-                    />
+                      className={`outline-none ${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'} px-4 py-2 border rounded-md text-sm shadow-sm focus:outline-none`}
+                      />
                     
                   </View>
 
@@ -99,16 +104,16 @@ const LoginModal = ({onClose}) => {
                     <Text className="text-white font-extrabold p-2">Login</Text>
                   </TouchableOpacity>
 
-                  <Text>Don't have a fictive account?{' '}
-                    <Pressable onPress={() => {
-                      navigation.navigate("SignUp");
-                      onClose();
-                      }}
-                    >
-                        <Text className="text-[#0058f7]">
+                  <Text className={`${isDarkTheme ? 'text-white' : 'text-black'}`}>Don't have a fictive account?{' '}
+                    
+                      <Text onPress={() => {
+                        navigation.navigate("SignUp");
+                        onClose();
+                      }} 
+                      className="text-[#0058f7]">
                           Create one
                         </Text>
-                    </Pressable>
+                  
                     
                   </Text>
                 

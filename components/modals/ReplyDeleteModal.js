@@ -1,9 +1,11 @@
-import { View, Text, Modal, TouchableWithoutFeedback, SafeAreaView, TouchableOpacity } from 'react-native'
-import React, { useEffect } from 'react';
+import { View, Text, Modal, TouchableWithoutFeedback, SafeAreaView, TouchableOpacity, Appearance } from 'react-native'
+import React from 'react';
 import {TrashIcon, ChatBubbleLeftIcon} from 'react-native-heroicons/outline';
 import { deleteComment } from '../queries/fetchUserDetails';
 
 const ReplyDeleteModal = ({onClose, comment, userDetails, commenter, bookId, chapterId, commentId, handleReply}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
 
   const closeModal = () => {
     onClose();
@@ -19,12 +21,12 @@ const ReplyDeleteModal = ({onClose, comment, userDetails, commenter, bookId, cha
     >
         <TouchableWithoutFeedback onPress={closeModal}>
 
-            <SafeAreaView className="flex-1 justify-end bottom-0 bg-black/[0.3]">
-                <View className="bg-white rounded-xl space-y-2 px-4 py-4 mx-6">
+            <SafeAreaView className={`flex-1 justify-end bottom-0 ${isDarkTheme ? 'bg-zinc-800/[0.6]' : 'bg-black/[0.3]'} `}>
+                <View className={`${isDarkTheme ? 'bg-black' : 'bg-white'} rounded-xl space-y-2 px-4 py-4 mx-6`}>
 
                   <Text
                     className="text-gray-400"
-                    numberOfLines={2}
+                    numberOfLines={1}
                     ellipsizeMode="tail"
                     style={{
                       fontSize: 14,
@@ -39,8 +41,8 @@ const ReplyDeleteModal = ({onClose, comment, userDetails, commenter, bookId, cha
                         onPress={handleReply}
                         className="flex-row items-center space-x-2"
                       >
-                        <ChatBubbleLeftIcon size={20} color="black"/>
-                        <Text>Reply</Text>
+                        <ChatBubbleLeftIcon size={20} color={`${isDarkTheme ? 'white' : 'black'}`}/>
+                        <Text className={`${isDarkTheme ? 'text-white' : 'text-black'}`}>Reply</Text>
                       </TouchableOpacity>
 
                       {userDetails.uid === commenter && (
@@ -48,8 +50,8 @@ const ReplyDeleteModal = ({onClose, comment, userDetails, commenter, bookId, cha
                           onPress={() => deleteComment(bookId, chapterId, commentId)}
                           className="flex-row items-center space-x-2"
                         >
-                          <TrashIcon size={20} color="black"/>
-                          <Text>Delete</Text>
+                          <TrashIcon size={20} color={`${isDarkTheme ? 'white' : 'black'}`}/>
+                          <Text className={`${isDarkTheme ? 'text-white' : 'text-black'}`}>Delete</Text>
                         </TouchableOpacity>
                       )}
                       

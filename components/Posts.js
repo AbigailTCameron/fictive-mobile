@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, Pressable, TouchableOpacity, ScrollView, Appearance } from 'react-native'
 import React, { useState } from 'react';
 import {StarIcon} from 'react-native-heroicons/solid';
 import LoginModal from './modals/LoginModal';
@@ -8,6 +8,9 @@ import { handleToggleReadingList } from './queries/fetchUserDetails';
 
 
 const Posts = ({user, setUserDetails, posts, userDetails, selectedTheme, hasMoreBooks, setBatchSize}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation();
 
   const [readingList, setReadingList] = useState([]);
@@ -38,7 +41,7 @@ const Posts = ({user, setUserDetails, posts, userDetails, selectedTheme, hasMore
         <View key={index} className="mx-3 my-1">
             <TouchableOpacity 
               onPress={() => handleBookClick(post.id, post.data().bookTitle, post.data().image_url)}
-              className="w-full flex bg-white rounded-xl dark:bg-zinc-900 shadow-sm dark:text-white py-4 px-4"
+              className={`w-full flex ${isDarkTheme ? 'bg-zinc-900' : 'bg-white'}  rounded-xl  shadow-sm py-4 px-4`}
               key={post.id}
             >
                 <View className="flex-row space-x-4">
@@ -57,14 +60,14 @@ const Posts = ({user, setUserDetails, posts, userDetails, selectedTheme, hasMore
                     )}
 
                     <View className="flex-1">
-                        <Text className='text-xl font-semibold'>{post.data().bookTitle}</Text>
-                        <Text className='text-lg'>{post.data().author}</Text>
+                        <Text className={`${isDarkTheme ? 'text-white' : 'text-black'} text-xl font-semibold`}>{post.data().bookTitle}</Text>
+                        <Text className={`${isDarkTheme ? 'text-white' : 'text-black'} text-lg`}>{post.data().author}</Text>
 
                         <View className="flex-row w-full space-x-1">
                             {post.data().tags.map((tag, index) => (
                                 <View key={index} className="border border-[#eaeaea] rounded-md">
                                   <Text 
-                                    className="p-1 text-sm font-semibold text-zinc-500"
+                                    className={`p-1 text-sm font-semibold ${isDarkTheme ? 'text-zinc-300' : 'text-zinc-500'} `}
                                   >{tag}
                                   </Text>
                                 </View>
@@ -98,6 +101,7 @@ const Posts = ({user, setUserDetails, posts, userDetails, selectedTheme, hasMore
                        
                       <View className="w-full overflow-hidden">
                         <Text 
+                          className={`${isDarkTheme? 'text-white' : 'text-black'}`}
                           numberOfLines={2}
                           ellipsizeMode="tail"
                           style={{

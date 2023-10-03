@@ -1,8 +1,11 @@
-import { View, Text, Image, Pressable } from 'react-native'
+import { View, Text, Image, Pressable, Appearance } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 
 const SearchResults = ({results, userDetails}) => {
+  const colorScheme = Appearance.getColorScheme();
+  const isDarkTheme = colorScheme === 'dark';
+
   const navigation = useNavigation();
 
   const handleUserClick = (username) => {
@@ -34,17 +37,17 @@ const SearchResults = ({results, userDetails}) => {
                       source={{
                         uri: result.image_url
                       }} 
-                        className="w-10 h-18 rounded-xl" 
+                        className="w-12 h-16 rounded-xl" 
                       />
                     ) : (
                       <Image 
                         source={require('../assets/logo.png')} 
-                        className="w-10 h-18 rounded-xl" 
+                        className="w-12 h-16 rounded-xl" 
                       />
                     )}
                     <View>
-                      <Text className="font-semibold">{result.bookTitle}</Text>
-                      <Text className="text-xs text-gray-500">{result.author}</Text>
+                      <Text className={`font-bold ${isDarkTheme? 'text-white' : 'text-black'}`}>{result.bookTitle}</Text>
+                      <Text className={`text-xs ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'} `}>{result.author}</Text>
                     </View>
                 </Pressable>
               ) : (
@@ -66,11 +69,9 @@ const SearchResults = ({results, userDetails}) => {
                   )}
 
                   <View>
-                    <View className="flex-row space-x-1">
-                      <Text>{result.firstName}</Text>
-                      <Text>{result.lastName}</Text>
-                    </View>
-                    <Text className="text-xs text-gray-500 dark:text-gray-400">{result.username}</Text>
+               
+                    <Text className={`font-bold ${isDarkTheme ? 'text-white' : 'text-black'}`}>{result.firstName} {result.lastName}</Text>
+                    <Text className={`text-xs ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`}>{result.username}</Text>
                   </View>
 
                 </Pressable>

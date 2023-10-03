@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Appearance } from 'react-native'
 import React, { useState } from 'react'
 import { changeEmail, changePassword, updateAccount } from './queries/fetchUserDetails';
 import { useNavigation } from '@react-navigation/native';
@@ -6,6 +6,9 @@ import EmailChangeModal from './modals/EmailChangeModal';
 import PasswordChangeModal from './modals/PasswordChangeModal';
 
 const Settings = ({userDetails, setUserDetails}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation(); 
 
   const [firstName, setFirstName] = useState(""); 
@@ -102,23 +105,25 @@ const Settings = ({userDetails, setUserDetails}) => {
       className="m-4"
     >
         <View className="space-y-4 mb-8">
-              <Text className="text-lg font-semibold">Account</Text>
+              <Text className={`text-lg font-semibold ${isDarkTheme ? 'text-white' : 'text-black'}`}>Account</Text>
               <View className="flex-1 flex-row space-x-4">
                   <View className="flex-1 space-y-1">
-                      <Text className="text-base font-medium">First name:</Text>
+                      <Text className={`text-base font-medium ${isDarkTheme ? 'text-white' : 'text-black'}`}>First name:</Text>
                       <TextInput 
-                        className="flex-1 p-4 rounded-lg text-black border border-slate-300 bg-white"
+                        className={`flex-1 p-4 rounded-lg ${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'} border`}
                         placeholder={firstNameHolder}
+                        placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                         value={firstName}
                         onChangeText={(text) => setFirstName(text)}
                       />
                   </View>
 
                   <View className="flex-1 space-y-1">
-                      <Text className="text-base font-medium">Last name:</Text>
+                      <Text className={`text-base font-medium ${isDarkTheme ? 'text-white' : 'text-black'}`}>Last name:</Text>
                       <TextInput 
-                        className="flex-1 p-4 rounded-lg text-black border border-slate-300 bg-white"
+                        className={`flex-1 p-4 rounded-lg ${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'} border`}
                         placeholder={lastNameHolder}
+                        placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                         value={lastName}
                         onChangeText={(text) => setLastName(text)}
                       />
@@ -126,11 +131,12 @@ const Settings = ({userDetails, setUserDetails}) => {
               </View>
 
               <View className="flex-1">
-                    <Text className="text-base font-medium">Bio</Text>
+                    <Text className={`text-base font-medium ${isDarkTheme ? 'text-white' : 'text-black'}`}>Bio</Text>
                     <TextInput 
                       keyboardType='default'
-                      className="flex-1 p-4 rounded-lg text-black border border-slate-300 bg-white"
+                      className={`flex-1 ${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'} p-4 rounded-lg border`}
                       placeholder={bioHolder}
+                      placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                       value={bio}
                       onChangeText={(text) => setBio(text)}
                     />
@@ -146,13 +152,14 @@ const Settings = ({userDetails, setUserDetails}) => {
          
 
           <View className="space-y-6 my-8">
-                <Text className="text-lg font-semibold">Security</Text>
+                <Text className={`text-lg font-semibold ${isDarkTheme ? 'text-white' : 'text-black'}`}>Security</Text>
                 <View className="flex-1">
-                    <Text className="text-base font-medium">Email</Text>
+                    <Text className={`text-base font-medium ${isDarkTheme ? 'text-white' : 'text-black'}`}>Email</Text>
                     <TextInput 
                       keyboardType='email-address'
-                      className="flex-1 p-4 rounded-lg text-black border border-slate-300 bg-white"
+                      className={`flex-1 ${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'} p-4 rounded-lg border`}
                       placeholder={emailHolder}
+                      placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                       value={email}
                       onChangeText={handleEmailChange}
                     />
@@ -173,11 +180,12 @@ const Settings = ({userDetails, setUserDetails}) => {
                 )}
 
                 <View className="flex-1">
-                    <Text className="text-base font-medium">New Password</Text>
+                    <Text className={`text-base font-medium ${isDarkTheme ? 'text-white' : 'text-black'}`}>New Password</Text>
                     <TextInput 
-                        className="flex-1 p-4 rounded-lg text-black border border-slate-300 bg-white"
-                        keyboardType='default'
+                      className={`flex-1 ${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'} p-4 rounded-lg border`}
+                      keyboardType='default'
                         placeholder="Password"
+                        placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                         value={password}
                         onChangeText={handlePasswordChange}
                         secureTextEntry={true}
@@ -186,11 +194,12 @@ const Settings = ({userDetails, setUserDetails}) => {
 
               
                 <View className="flex-1">
-                    <Text className="text-base font-medium">Confirm Password</Text>
+                    <Text className={`text-base font-medium ${isDarkTheme ? 'text-white' : 'text-black'}`}>Confirm Password</Text>
                     <TextInput 
-                        className="flex-1 p-4 rounded-lg text-black border border-slate-300 bg-white"
-                        keyboardType='default'
+                      className={`flex-1 ${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'} p-4 rounded-lg border`}
+                      keyboardType='default'
                         placeholder="Password"
+                        placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                         value={confirmPassword}
                         onChangeText={handleConfirmPasswordChange}
                         secureTextEntry={true}

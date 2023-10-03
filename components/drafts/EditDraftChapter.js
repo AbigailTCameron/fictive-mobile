@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView, TouchableOpacity, SafeAreaView, KeyboardAvoidingView} from 'react-native'
+import { View, Text, TextInput, ScrollView, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Appearance} from 'react-native'
 import React, { useState } from 'react'
 import { deleteChapter, handleSaveChapterContent } from '../queries/fetchUserDetails';
 import { useNavigation } from '@react-navigation/native';
@@ -6,6 +6,9 @@ import DeleteDraft from '../modals/DeleteDraft';
 
 
 const EditDraftChapter = ({draftInfo, userDetails, draftId, chapterId}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation(); 
 
   const [chapterTitle, setChapterTitle] = useState(draftInfo.chapterTitle || '');
@@ -48,8 +51,9 @@ const EditDraftChapter = ({draftInfo, userDetails, draftId, chapterId}) => {
        
           <View>
               <TextInput
-                className="bg-white px-4 py-2 border text-black border-slate-300 rounded-md text-[14px]"
+                className={`${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'}  px-4 py-2 border rounded-md text-[14px]`}
                 placeholder="Chapter Title..."
+                placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                 value={chapterTitle}
                 onChangeText={(text) => {
                   setChapterTitle(text);
@@ -67,8 +71,9 @@ const EditDraftChapter = ({draftInfo, userDetails, draftId, chapterId}) => {
           </View>
           <ScrollView className="flex-grow-1">
                 <TextInput
-                  className="p-2 flex-1 h-screen text-black rounded-md text-[14px]"
+                  className={`p-2 flex-1 h-screen ${isDarkTheme ? 'text-white' : 'text-black'} rounded-md text-[14px]`}
                   placeholder="Write your story here..."
+                  placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                   value={storyContent}
                   onChangeText={(text) => {
                     setStoryContent(text);

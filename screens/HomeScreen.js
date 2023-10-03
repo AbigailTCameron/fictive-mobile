@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, Image, TextInput, Pressable, ScrollView, RefreshControl } from 'react-native'
-import React, { useCallback, useContext, useEffect, useLayoutEffect, useState } from 'react'
+import { View, SafeAreaView, ScrollView, RefreshControl, StatusBar, Appearance } from 'react-native'
+import React, { useCallback, useLayoutEffect, useState } from 'react'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import Categories from '../components/Categories';
 import HomeHeader from '../components/headers/HomeHeader';
@@ -8,6 +8,8 @@ import { fetchBooks } from '../components/queries/fetchUserDetails';
 import HomeFooter from '../components/footers/HomeFooter';
 
 const HomeScreen = ({user, userDetails, setUserDetails}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
 
   const [books, setBooks] = useState([]);
   const [batchSize, setBatchSize] = useState(10);
@@ -58,15 +60,19 @@ const HomeScreen = ({user, userDetails, setUserDetails}) => {
 
   return (
     <View className="flex-1">
-        <View className="flex-0 bg-[#0059f7]"/>
+        <StatusBar
+          backgroundColor='white'
+        />
 
-          <SafeAreaView className="flex-0 z-50 bg-[#0058f7]">
+        <View className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-[#0059f7]'}`}/>
+         
+          <SafeAreaView className={`flex-0 z-50 ${isDarkTheme ? 'bg-black' : 'bg-[#0058f7]'}`}>
               <HomeHeader user={user} userDetails={userDetails}/>
           </SafeAreaView>
 
          
           <ScrollView 
-            className="flex-1 bg-gray-100"
+            className={`flex-1 ${isDarkTheme ? 'bg-zinc-800' : 'bg-gray-100'}`}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
           > 
               <Categories selectedTheme={selectedTheme} setSelectedTheme={setSelectedTheme}/>  
@@ -74,13 +80,12 @@ const HomeScreen = ({user, userDetails, setUserDetails}) => {
           </ScrollView>   
 
 
-          <SafeAreaView className="flex-0 bg-white">
+          <SafeAreaView className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-white'}`}>
               <HomeFooter user={user}/>
           </SafeAreaView>
 
-          <View className="flex-0 bg-white"/>
+          <View className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-white'}`}/>
             
-  
     </View>
  
   )

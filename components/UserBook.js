@@ -1,9 +1,12 @@
-import { View, Text, RefreshControl, TouchableOpacity, Image } from 'react-native'
+import { View, Text, RefreshControl, TouchableOpacity, Image, Appearance } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { fetchPublished } from './queries/fetchUserDetails';
 import { useNavigation } from '@react-navigation/native';
 
 const UserBook = ({userData, userDetails}) => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   const navigation = useNavigation();
 
   const [published, setPublished] = useState([]);
@@ -51,7 +54,7 @@ const UserBook = ({userData, userDetails}) => {
             {published.map((book) => (
               <TouchableOpacity 
                 onPress={() => handleBookClick(book.id, book.data().bookTitle, book.data().image_url, userDetails)}
-                className="bg-white rounded-xl py-4 px-4 shadow-sm flex-row space-x-4"
+                className={`${isDarkTheme ? 'bg-zinc-900' : 'bg-white'} rounded-xl py-4 px-4 shadow-sm flex-row space-x-4`}
                 key={book.id}
               >
                  {book.data().image_url ? (
@@ -71,8 +74,8 @@ const UserBook = ({userData, userDetails}) => {
                 )}
                 
                 <View className="space-y-1 flex-1">
-                    <Text className="text-lg font-bold text-[#0059f7]">{book.data().bookTitle}</Text>
-                    <Text>{book.data().author}</Text>
+                    <Text className={`text-lg font-bold ${isDarkTheme ? 'text-white' : 'text-[#0059f7]'} `}>{book.data().bookTitle}</Text>
+                    <Text className={`${isDarkTheme ? 'text-white' : 'text-black'}`}>{book.data().author}</Text>
 
                     <View className="flex-row w-full space-x-1">
                         {book.data().tags.map((tag, index) => (
@@ -84,6 +87,7 @@ const UserBook = ({userData, userDetails}) => {
                     </View>
                     <View className="w-full overflow-hidden">
                       <Text 
+                        className={`${isDarkTheme ? 'text-white' : 'text-black'}`}
                         numberOfLines={2}
                         ellipsizeMode="tail"
                         style={{

@@ -91,14 +91,14 @@ const EditDraftHeader = ({draftData, userDetails, setDraftData, draftId}) => {
       <TouchableOpacity onPress={handleImageChange}>
             {draftData.image_url ? (
               <Image
-                className="flex-1 border border-black rounded-xl"
+                className="flex-1 border-[1px] rounded-xl"
                 source={{ uri: draftData.image_url }}
                 style={{ width: 100, height: 100}}
               />
             ) : (
           
                 <Image
-                  className="flex-1 border border-black rounded-xl"
+                  className="flex-1 border-[1px] rounded-xl"
                   source={require('../../assets/no-cover.png')}
                   style={{ width: 100, height: 100 }}
                 />

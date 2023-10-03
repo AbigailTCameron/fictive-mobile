@@ -1,9 +1,12 @@
-import { View, Text, Image, ActivityIndicator } from 'react-native'
+import { View, Text, Image, ActivityIndicator, Appearance } from 'react-native'
 import React from 'react';
 
 const LoadingPage = () => {
+  const theme = Appearance.getColorScheme();  
+  const isDarkTheme = theme === 'dark';
+
   return (
-    <View className="w-full h-full items-center justify-center bg-[#0058f7] space-y-2">
+    <View className={`w-full h-full items-center justify-center ${isDarkTheme ? 'bg-black' : 'bg-[#0058f7]'}  space-y-2`}>
 
       <View className="flex-row items-center space-x-2">
         <Image 
