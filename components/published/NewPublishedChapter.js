@@ -1,17 +1,18 @@
-import { View, Text, TextInput, ScrollView, Appearance } from 'react-native'
+import { View, Text, TextInput, ScrollView, Appearance, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import React, { useState } from 'react'
+import TextEditor from '../TextEditor';
 
-const NewPublishedChapter = ({chapterTitle, setChapterTitle, storyContent, setStoryContent, showWarning, setShowWarning}) => {
+const NewPublishedChapter = ({chapterTitle, setChapterTitle, storyContent, setStoryContent, showWarning, setShowWarning, handleSaveDraft, handlePublishClick}) => {
 
   const theme = Appearance.getColorScheme();  
   const isDarkTheme = theme === 'dark';
 
 
   return (
-    <View className="h-full m-2">
-        <View className="space-y-1">
+    <KeyboardAvoidingView className="m-2" style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+        <View>
             <TextInput 
-                className={`${isDarkTheme ? 'bg-zinc-600 text-white' : 'bg-white text-black'}  px-4 py-2 rounded-md text-sm`}
+                className={`${isDarkTheme ? 'bg-zinc-600 text-white border-zinc-600' : 'bg-white border-slate-300 text-black'}  px-4 py-2 border rounded-md text-[14px]`}
                 placeholder="Chapter Title..."
                 placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
                 value={chapterTitle}
@@ -30,24 +31,30 @@ const NewPublishedChapter = ({chapterTitle, setChapterTitle, storyContent, setSt
             )}
         </View>
      
-        <ScrollView className="flex-1">
-            <TextInput
-                className={`p-2 flex-1 h-screen ${isDarkTheme ? 'text-white' : 'text-black '} rounded-md text-[14px]`}
-                placeholder="Write your story here..."
-                placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
-                value={storyContent}
-                onChangeText={(text) => {
-                  setStoryContent(text);
-                  if (showWarning) {
-                    setShowWarning(false);
-                  }
-                }}
-                multiline
+        <View className="flex-1">
+              <TextEditor 
+                  storyContent={storyContent}
+                  setStoryContent={setStoryContent}
+                  showWarning={showWarning}
+                  setShowWarning={setShowWarning}
               />
-        </ScrollView>
+        </View>
+
+        <SafeAreaView className="flex-row mx-4">
+              <View className="flex-row items-center justify-center flex-1 space-x-2">
+                  <TouchableOpacity className="flex-1 bg-black items-center rounded-md py-2"  onPress={handleSaveDraft}>
+                    <Text className="text-white font-bold">Save as draft</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity className="flex-1 bg-black items-center rounded-md py-2" onPress={handlePublishClick}>
+                    <Text className="text-white font-bold">Publish</Text>
+                  </TouchableOpacity>
+
+              </View>
+        </SafeAreaView>
 
 
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 

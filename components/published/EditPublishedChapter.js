@@ -4,6 +4,7 @@ import DeleteDraft from '../modals/DeleteDraft';
 import { handleDeleteChapterPublished, handleReEditPost, handleRePublish } from '../queries/fetchUserDetails';
 import { useNavigation } from '@react-navigation/native';
 import ConfirmPublish from '../modals/ConfirmPublish';
+import TextEditor from '../TextEditor';
 
 const EditPublishedChapter = ({draftInfo, publishedId, chapterId}) => {
   const theme = Appearance.getColorScheme();  
@@ -90,21 +91,14 @@ const EditPublishedChapter = ({draftInfo, publishedId, chapterId}) => {
               </View>
             )}
         </View>
-        <ScrollView className="flex-grow-1">
-              <TextInput
-                className={`p-2 flex-1 h-screen ${isDarkTheme ? 'text-white' : 'text-black'} rounded-md text-[14px]`}
-                placeholder="Write your story here..."
-                placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
-                value={storyContent}
-                onChangeText={(text) => {
-                  setStoryContent(text);
-                  if (showWarning) {
-                    setShowWarning(false);
-                  }
-                }}
-                multiline
-              />
-        </ScrollView>
+        <View className="flex-1">
+            <TextEditor 
+              storyContent={storyContent}
+              setStoryContent={setStoryContent}
+              showWarning={showWarning}
+              setShowWarning={setShowWarning}
+            />
+        </View>
 
         {showDeleteConfirm && (
           <DeleteDraft 

@@ -1,4 +1,4 @@
-package com.anonymous.fictivemobile;
+package com.fictivelabs.fictivemobile;
 
 import android.app.Application;
 import android.content.res.Configuration;

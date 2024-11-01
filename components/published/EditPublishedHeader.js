@@ -52,10 +52,8 @@ const EditPublishedHeader = ({userDetails, bookData, bookId, setBookData}) => {
     <View className="flex-row bg-[#0058f7] space-x-4 p-2">
         <View className="flex-1">
       
-            <View className="flex-row space-x-2 items-center my-1">
+            <View className="flex space-x-2 my-1">
               <Text className="text-white font-extrabold text-xl">{bookData.bookTitle}</Text>
-              <Text className="text-white">•</Text>
-              <Text className="text-white">{bookData.chapters.length} chapters</Text>
             </View>
       
             <View className="flex-row items-center space-x-2">
@@ -75,13 +73,10 @@ const EditPublishedHeader = ({userDetails, bookData, bookId, setBookData}) => {
                     )}
                   
                   <View>
-                      <Text className="text-white font-bold">@{userDetails.username}</Text>
-                      <Text className="text-white text-xs font-light">{formatTimestamp(bookData.publishedAt)}</Text>
-                  </View>
-
-                  <View className="flex-row space-x-1">
-                      <Text className="text-white">•</Text>
+                      <Text className="text-white">{bookData.chapters.length} chapters</Text>
                       <Text className="text-white">{bookData.readCount} Views</Text>
+
+                      <Text className="text-white text-xs font-light">{formatTimestamp(bookData.publishedAt)}</Text>
                   </View>
             </View>
 

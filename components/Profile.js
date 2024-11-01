@@ -34,7 +34,6 @@ const Profile = ({user, userDetails}) => {
           <Text className={`font-medium text-sm ${isDarkTheme ? 'text-white' : 'text-black'}`}>@{userDetails.username}</Text>
       </View>
         
-     
     </View>
   )
 }

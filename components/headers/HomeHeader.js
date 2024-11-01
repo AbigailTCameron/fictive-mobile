@@ -72,7 +72,7 @@ const HomeHeader = ({user, userDetails}) => {
                   setLoginWindow(true);
                 }
             }}>
-                {user && userDetails.profilePictureURL ? (
+                {user && userDetails && userDetails.profilePictureURL ? (
                   <Image 
                       source={{
                         uri: userDetails.profilePictureURL
@@ -94,7 +94,7 @@ const HomeHeader = ({user, userDetails}) => {
             )}
         </View>
 
-        {isDropdownVisible && ( 
+        {isDropdownVisible && userDetails && ( 
           <HeaderMenu 
             userDetails={userDetails}
             onClose={() => setDropdownVisible(false)}

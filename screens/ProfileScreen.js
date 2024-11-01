@@ -26,7 +26,7 @@ const ProfileScreen = ({user, userDetails, setUserDetails}) => {
         </SafeAreaView>
 
 
-        <View className={`flex-1 ${isDarkTheme ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+        <View className={`flex-1 ${isDarkTheme ? 'bg-black' : 'bg-gray-100'}`}>
           <ProfileCentered user={user} userDetails={userDetails} setUserDetails={setUserDetails}/>
         </View>
 

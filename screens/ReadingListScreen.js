@@ -6,6 +6,7 @@ import HomeFooter from '../components/footers/HomeFooter';
 import Profile from '../components/Profile';
 import ReadingQueue from '../components/ReadingQueue';
 import { fetchReadingList } from '../components/queries/fetchUserDetails';
+import LoadingPage from './loading/LoadingPage';
 
 const ReadingListScreen = ({user, userDetails}) => {
   const theme = Appearance.getColorScheme();  
@@ -26,6 +27,12 @@ const ReadingListScreen = ({user, userDetails}) => {
   useEffect(() => {
     fetchReadingList(setLoading, userDetails, setReadingList);
   }, [userDetails])
+
+  if(loading){
+    return(
+      <LoadingPage />
+    )
+  }
 
   return (
     <View className="flex-1">

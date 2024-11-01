@@ -115,14 +115,16 @@ const NewPublishedChapterScreen = ({user, userDetails}) => {
             <HomeHeader user={user} userDetails={userDetails}/>
         </SafeAreaView>
 
-        <EditPublishedHeader 
-          userDetails={userDetails}
-          bookData={bookData}
-          setBookData={setBookData}  
-          bookId={bookId}
-        />
+        
 
-        <ScrollView className="flex-1">
+        <View className="flex-1">
+          <EditPublishedHeader 
+            userDetails={userDetails}
+            bookData={bookData}
+            setBookData={setBookData}  
+            bookId={bookId}
+          />
+
           <NewPublishedChapter 
             chapterTitle={chapterTitle}
             setChapterTitle={setChapterTitle}
@@ -130,29 +132,11 @@ const NewPublishedChapterScreen = ({user, userDetails}) => {
             setStoryContent={setStoryContent}
             showWarning={showWarning}
             setShowWarning={setShowWarning}
+            handleSaveDraft={handleSaveDraft}
+            handlePublishClick={handlePublishClick}
           />
 
-        </ScrollView>
-
-        <SafeAreaView className="flex-0">
-            <View className={`w-full bottom-0 fixed`}>
-                <View className="flex-row w-full justify-evenly space-x-2 px-4">
-                    <TouchableOpacity
-                      onPress={handleSaveDraft}
-                      className="flex-1 items-center rounded-lg bg-black py-2"
-                    >
-                      <Text className="text-white font-bold">Save as draft</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                      onPress={handlePublishClick}
-                      className="flex-1 items-center rounded-lg bg-black py-2"
-                    >
-                      <Text className="text-white font-bold">Publish</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </SafeAreaView>
+        </View>
 
         <View className={`flex-0 ${isDarkTheme ? 'bg-zinc-800' : 'bg-white'} `}/>
 

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { deleteChapter, handleSaveChapterContent } from '../queries/fetchUserDetails';
 import { useNavigation } from '@react-navigation/native';
 import DeleteDraft from '../modals/DeleteDraft';
+import TextEditor from '../TextEditor';
 
 
 const EditDraftChapter = ({draftInfo, userDetails, draftId, chapterId}) => {
@@ -69,21 +70,14 @@ const EditDraftChapter = ({draftInfo, userDetails, draftId, chapterId}) => {
                 </View>
               )}
           </View>
-          <ScrollView className="flex-grow-1">
-                <TextInput
-                  className={`p-2 flex-1 h-screen ${isDarkTheme ? 'text-white' : 'text-black'} rounded-md text-[14px]`}
-                  placeholder="Write your story here..."
-                  placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
-                  value={storyContent}
-                  onChangeText={(text) => {
-                    setStoryContent(text);
-                    if (showWarning) {
-                      setShowWarning(false);
-                    }
-                  }}
-                  multiline
+          <View className="flex-1">
+                <TextEditor 
+                    storyContent={storyContent}
+                    setStoryContent={setStoryContent}
+                    showWarning={showWarning}
+                    setShowWarning={setShowWarning}
                 />
-          </ScrollView>
+          </View>
 
           {showDeleteConfirm && (
             <DeleteDraft 

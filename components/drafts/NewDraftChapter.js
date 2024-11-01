@@ -1,7 +1,8 @@
-import { View, Text, TextInput, ScrollView, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, Appearance } from 'react-native'
+import { View, Text, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, Appearance } from 'react-native'
 import React, { useState } from 'react'
 import { handleAddNewChapter } from '../queries/fetchUserDetails';
 import { useNavigation } from '@react-navigation/native';
+import TextEditor from '../TextEditor';
 
 const NewDraftChapter = ({draftId, userDetails}) => {
   const theme = Appearance.getColorScheme();  
@@ -42,28 +43,23 @@ const NewDraftChapter = ({draftId, userDetails}) => {
                 }}
             />
 
+            
             {showWarning && (
-              <View className="flex items-center justify-center mt-2">
-                <Text className="text-red-500 font-semibold">You need content and a chapter title!!!</Text>
+              <View className="items-center text-center mt-1">
+                <Text className="text-red-500 font-bold">You need content and a chapter title!!!</Text>
               </View>
             )}
         </View>
          
-        <ScrollView className="flex-grow-1">
-            <TextInput
-                className={`p-2 flex-1 h-screen ${isDarkTheme ? 'text-white' : 'text-black '} rounded-md text-[14px]`}
-                placeholder="Write your story here..."
-                placeholderTextColor={`${isDarkTheme ? '#d4d4d8' : ''}`}
-                value={storyContent}
-                onChangeText={(text) => {
-                  setStoryContent(text);
-                  if (showWarning) {
-                    setShowWarning(false);
-                  }
-                }}
-                multiline
-              />
-        </ScrollView>
+        <View className="flex-1">
+          <TextEditor 
+              storyContent={storyContent}
+              setStoryContent={setStoryContent}
+              showWarning={showWarning}
+              setShowWarning={setShowWarning}
+          />
+        
+        </View>
 
         <SafeAreaView className="flex-row mx-4">
               <View className="flex-row items-center justify-center flex-1 space-x-2">

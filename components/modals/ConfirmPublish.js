@@ -54,10 +54,10 @@ const ConfirmPublish = ({bookTitle, onClose, onConfirm}) => {
                         </TouchableOpacity>
 
                         <TouchableOpacity 
-                          className="px-2 py-3 flex-1 items-center text-black  bg-white rounded-xl"
+                          className={`px-2 py-3 flex-1 items-center ${isDarkTheme ? '' : 'border-2 border-red-500'} bg-white rounded-xl`}
                           onPress={closeModal}
                         >
-                          <Text className="font-semibold">Cancel</Text>
+                          <Text className="font-semibold text-red-500">Cancel</Text>
                         </TouchableOpacity>
 
                   </View>

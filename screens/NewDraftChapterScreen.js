@@ -47,14 +47,17 @@ const NewDraftChapterScreen = ({user, userDetails}) => {
           <HomeHeader user={user} userDetails={userDetails}/>
         </SafeAreaView>
 
-        <EditDraftHeader 
-          draftData={draftData} 
-          userDetails={userDetails}
-          setDraftData={setDraftData}
-          draftId={draftId}
-        />
+       
 
         <View className="flex-1">
+
+          <EditDraftHeader 
+            draftData={draftData} 
+            userDetails={userDetails}
+            setDraftData={setDraftData}
+            draftId={draftId}
+          />
+          
           <NewDraftChapter 
             draftId={draftId}
             userDetails={userDetails}

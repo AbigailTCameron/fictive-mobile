@@ -89,7 +89,6 @@ const NewAccountScreen = ({user, userDetails}) => {
 
       <View className={`flex-0 ${isDarkTheme ? 'bg-black' : 'bg-[#0059f7]'}`}/>
 
-
       <SafeAreaView className={`flex-0 z-50 ${isDarkTheme ? 'bg-black' : 'bg-[#0058f7]'}`}>
           <HomeHeader user={user} userDetails={userDetails}/>
       </SafeAreaView>
@@ -189,10 +188,6 @@ const NewAccountScreen = ({user, userDetails}) => {
           </TouchableOpacity>
 
       </View>
-
-        
-      
-
     </KeyboardAvoidingView>
   )
 }

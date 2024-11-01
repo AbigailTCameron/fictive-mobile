@@ -23,7 +23,7 @@ const PublishedScreen = ({user, userDetails}) => {
     } catch (error) {
       console.log("Error fetching data:", error);
     }
-  }, [userDetails]);
+  }, [user]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -51,11 +51,11 @@ const PublishedScreen = ({user, userDetails}) => {
     }, [fetchPublishedData])
   );
 
-  if(loading || published === null || published === undefined){
-    return(
-      <LoadingPage />
-    )
-  }
+  // if(loading || published === null || published === undefined){
+  //   return(
+  //     <LoadingPage />
+  //   )
+  // }
 
 
   return (

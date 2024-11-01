@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "fictive-mobile",
-    "slug": "fictive-mobile",
+    "name": "fictive",
+    "slug": "fictivelabs",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,17 +16,22 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.fictivemobile"
+      "bundleIdentifier": "com.fictivelabs.fictivemobile"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.fictivemobile"
+      "package": "com.fictivelabs.fictivemobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "23e1b0dd-7c6e-4f9f-ab3f-620e3fcc255d"
+      }
     }
   }
 }

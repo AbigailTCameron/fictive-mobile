@@ -1,9 +1,10 @@
-import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, Appearance } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image, Appearance } from 'react-native'
 import React, { useEffect, useState } from 'react';
 import { handleDirectPublish, saveAsDraft } from './queries/fetchUserDetails';
 import { useNavigation } from '@react-navigation/native';
 import ConfirmPublish from './modals/ConfirmPublish';
 import * as ImagePicker from 'expo-image-picker';
+import TextEditor from './TextEditor';
 
 const CreateForm = ({user, userDetails, setUserDetails}) => {
   const theme = Appearance.getColorScheme();  
@@ -31,7 +32,7 @@ const CreateForm = ({user, userDetails, setUserDetails}) => {
   }
 
   const handlePublishClick = () => {
-    if (!bookTitle || !chapterTitle || !storyContent) {
+    if (!bookTitle || !chapterTitle || !storyContent || !imageFile) {
       setShowWarning(true);
     } else {
       setShowWarning(false);
@@ -40,7 +41,7 @@ const CreateForm = ({user, userDetails, setUserDetails}) => {
   };
 
   const handleConfirm = () => { 
-    if(bookTitle && chapterTitle && storyContent){
+    if(bookTitle && chapterTitle && storyContent && imageFile){
       handleDirectPublish(bookTitle, chapterTitle, storyContent, imageFile, userDetails, navigation, setUserDetails)
       setShowConfirm(false);
     }else{
@@ -85,7 +86,7 @@ const CreateForm = ({user, userDetails, setUserDetails}) => {
 
   return (
     <View className="flex-1">
-        <View className="flex-row flex-1 space-x-2 p-2 border-b border-[#ccc]">
+        <View className="flex-row flex-fit space-x-2 p-2 border-b border-[#ccc]">
 
             <View className="flex-1">
                 <View className="flex-1 space-y-1">
@@ -130,7 +131,7 @@ const CreateForm = ({user, userDetails, setUserDetails}) => {
 
                   {showWarning && (
                     <View className="flex items-center justify-center mt-2">
-                      <Text className="text-red-500 font-semibold">You need content, a book and chapter title!!!</Text>
+                      <Text className="text-red-500 font-semibold">You need content, a cover, book and chapter title!!!</Text>
                     </View>
                   )}
 
@@ -146,14 +147,14 @@ const CreateForm = ({user, userDetails, setUserDetails}) => {
             <TouchableOpacity onPress={handleImageChange}>
                 {imageFile ? (
                   <Image
-                    className="flex-1 border-[1px] rounded-xl"
+                    className="border-[1px] rounded-xl"
                     source={{ uri: imageFile }}
                     style={{ width: 100, height: 100}}
                   />
                 ) : (
               
                     <Image
-                      className="flex-1 border-[1px] rounded-xl"
+                      className="border-[1px] rounded-xl"
                       source={require('../assets/add-cover.png')}
                       style={{ width: 100, height: 100 }}
                     />
@@ -171,20 +172,14 @@ const CreateForm = ({user, userDetails, setUserDetails}) => {
 
         </View>
 
-        <ScrollView >
-            <TextInput
-              className={`flex-1 p-2 outline-none flex-grow placeholder-slate-300 ${isDarkTheme ? 'text-white' : 'text-black'}`}
-              placeholder="Write your story here..."
-              value={storyContent}
-              onChangeText={(text) => {
-                setStoryContent(text);
-                if (showWarning) {
-                  setShowWarning(false);
-                }
-              }}
-              multiline
-            />
-        </ScrollView>
+        <View className="flex-1">
+          <TextEditor 
+            storyContent={storyContent}
+            setStoryContent={setStoryContent}
+            showWarning={showWarning}
+            setShowWarning={setShowWarning}
+          />
+        </View>
     </View>
   )
 }

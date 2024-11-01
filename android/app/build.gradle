@@ -81,9 +81,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.anonymous.fictivemobile'
+    namespace 'com.fictivelabs.fictivemobile'
     defaultConfig {
-        applicationId 'com.anonymous.fictivemobile'
+        applicationId 'com.fictivelabs.fictivemobile'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

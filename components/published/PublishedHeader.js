@@ -53,10 +53,8 @@ const PublishedHeader = ({userDetails, bookData, bookId, setBookData, setUserDet
     <View className="flex-row bg-[#0058f7] p-2">
          <View className="flex-row flex-1 space-x-4">
               <View className="flex-1">
-                  <View className="flex-row space-x-2 items-center my-1">
+                  <View className="space-x-2  my-1">
                     <Text className="text-white font-extrabold text-xl">{bookData.bookTitle}</Text>
-                    <Text className="text-white">•</Text>
-                    <Text className="text-white">{bookData.chapters.length} chapters</Text>
                   </View>
 
                   <View className="flex-row items-center space-x-2">
@@ -65,25 +63,22 @@ const PublishedHeader = ({userDetails, bookData, bookId, setBookData, setUserDet
                               source={{
                                 uri: userDetails.profilePictureURL
                               }} 
-                            className="w-20 h-20 rounded-full" 
+                            className="w-16 h-16 rounded-full" 
                           
                           />
                           ) : (
                             <Image
                               source={require('../../assets/tiuser1.png')}
-                            className="w-20 h-20 rounded-full" 
+                            className="w-16 h-16 rounded-full" 
                             />
                         )}
                         
                         <View>
-                            <Text className="text-white font-bold">@{userDetails.username}</Text>
-                            <Text className="text-white text-xs font-light">{formatTimestamp(bookData.publishedAt)}</Text>
+                          <Text className="text-white">{bookData.chapters.length} chapters</Text>
+                          <Text className="text-white">{bookData.readCount} Views</Text>
+                          <Text className="text-white text-xs font-light">{formatTimestamp(bookData.publishedAt)}</Text>
                         </View>
 
-                        <View className="flex-row space-x-1">
-                            <Text className="text-white">•</Text>
-                            <Text className="text-white">{bookData.readCount} Views</Text>
-                        </View>
                   </View>
 
                   <View className="flex-row pt-2 space-x-2">

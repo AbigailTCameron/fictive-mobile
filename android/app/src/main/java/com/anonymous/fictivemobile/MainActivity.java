@@ -1,4 +1,4 @@
-package com.anonymous.fictivemobile;
+package com.fictivelabs.fictivemobile;
 
 import android.os.Build;
 import android.os.Bundle;

@@ -50,12 +50,12 @@ const Posts = ({user, setUserDetails, posts, userDetails, selectedTheme, hasMore
                           source={{
                             uri: post.data().image_url 
                           }} 
-                          className="w-20 h-32 rounded-lg"
+                          className="w-28 h-44 rounded-lg"
                         />
                     ) : (
                         <Image 
                           source={require('../assets/no-cover.png')} 
-                          className="w-20 h-32 rounded-lg"
+                          className="w-28 h-44 rounded-lg"
                         />
                     )}
 
@@ -74,9 +74,9 @@ const Posts = ({user, setUserDetails, posts, userDetails, selectedTheme, hasMore
                             ))}
                         </View>
 
-                        <Pressable className="flex-row self-start items-center w-fit mt-2 space-x-1"
+                        <Pressable className="flex-row self-start items-center w-fit mt-1 p-1 space-x-1"
                           onPress={() => {
-                            if(user){
+                            if(user && userDetails){
                               setSelectedBookId(post.id);
                               setRatingModal(true);
                             }else{
@@ -84,11 +84,11 @@ const Posts = ({user, setUserDetails, posts, userDetails, selectedTheme, hasMore
                             }
                           }}
                         >
-                                <Text className="font-bold text-zinc-500">{post.data().rating.toFixed(2)}</Text>
-                                <StarIcon size={20} />
+                                <Text className="font-bold text-lg text-zinc-500">{post.data().rating.toFixed(2)}</Text>
+                                <StarIcon size={25} />
                         </Pressable>
 
-                        {ratingModal && selectedBookId === post.id && (
+                        {ratingModal && userDetails && selectedBookId === post.id && (
                           <RatingModal 
                             onClose={() => setRatingModal(false)}
                             bookTitle={post.data().bookTitle}
@@ -120,18 +120,18 @@ const Posts = ({user, setUserDetails, posts, userDetails, selectedTheme, hasMore
                 <View className="flex-row items-center w-full justify-end">
                       <TouchableOpacity 
                         onPress={() => {
-                          if(user){
+                          if(user && userDetails){
                             handleToggleReadingList(user, post.id, setReadingList, userDetails, setUserDetails);
                           }else {
                             setLoginWindow(true);
                           }
                         }}
-                        className="bg-[#0058f7] p-1 rounded-lg text-xs font-bold"
+                        className="bg-[#0058f7] px-2 py-1 rounded-lg"
                         >
                           {readingList.includes(post.id) ? (
-                            <Text className="text-white font-bold">remove from list</Text>
+                            <Text className="text-white text-base font-bold">remove from list</Text>
                           ): (
-                            <Text className="text-white font-bold">add to list</Text>
+                            <Text className="text-white text-base font-bold">add to list</Text>
                           )}
                       </TouchableOpacity>
                       
@@ -150,7 +150,7 @@ const Posts = ({user, setUserDetails, posts, userDetails, selectedTheme, hasMore
 
       {hasMoreBooks && (
         <Pressable className="items-center text-center" onPress={handleLoadMore}>
-          <Text className='text-base font-semibold mt-4'>
+          <Text className={`text-base font-semibold mt-4 ${isDarkTheme ? 'text-white' : 'text-black'}`}>
             Load more...
           </Text>
         </Pressable>

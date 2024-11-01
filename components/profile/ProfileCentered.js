@@ -42,7 +42,7 @@ const ProfileCentered = ({user, userDetails, setUserDetails}) => {
 
 
   return (
-    <View className={`h-full w-full flex-1 justify-center items-center ${isDarkTheme ? 'bg-zinc-800' : 'bg-white'}  space-y-10`}>
+    <View className={`h-full w-full flex-1 justify-center items-center ${isDarkTheme ? 'bg-black' : 'bg-white'}  space-y-10`}>
 
           <View className="items-center -mt-20 space-y-2">
                 <Text className={`${isDarkTheme ? 'text-white' : 'text-black'} font-extrabold text-3xl`}>{userDetails.firstName} {userDetails.lastName}</Text>
